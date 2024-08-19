@@ -1,0 +1,37 @@
+---
+import { getAllTags } from "@/utiles/getAllTags";
+
+const tags = await getAllTags();
+
+
+---
+
+<div id="open" class="flex gap-3">
+<span class="w-12 h-12 rounded-full grid place-items-center border border-zinc-500 cursor-pointer">
+    <svg class="w-6 h-6 text-white text-2xl" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M1 5h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 1 0 0-2H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2Zm18 4h-1.424a3.228 3.228 0 0 0-6.152 0H1a1 1 0 1 0 0 2h10.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Zm0 6H8.576a3.228 3.228 0 0 0-6.152 0H1a1 1 0 0 0 0 2h1.424a3.228 3.228 0 0 0 6.152 0H19a1 1 0 0 0 0-2Z"/>
+    </svg>
+</span>
+<div id="selector" class="opacity-0 transition-opacity">
+    {
+        tags.map((tag) => (
+
+        <a href={`/blog/tag/${tag.toLowerCase()}`}>
+            <span class="mt-4 self-start rounded border border-extra-soft-white px-2 py-1 text-zinc-400">
+                {tag}
+            </span>
+        </a>            
+        ))
+    }
+</div>
+</div>
+<script data-astro-rerun>
+    document.getElementById("open")?.addEventListener('click',()=>{
+
+       const selector= document.getElementById("selector")
+  
+       selector?.classList.toggle("opacity-0");
+       
+
+    })
+</script>

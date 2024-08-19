@@ -1,0 +1,76 @@
+---
+import "@/styles/global.css";
+import { ViewTransitions } from "astro:transitions";
+
+interface Props {
+  title: string;
+  description:string;
+  image:string;
+}
+
+const { title,description='Nuestro blog de astro',image="/assets/guitar.png" } = Astro.props;
+
+//const canonicalURL= new URL(Astro.url.pathname, Astro.site);
+
+---
+
+<head>
+  <!--Global Metadata -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!--  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />-->
+
+  <!--Font Preloads -->
+
+  <link
+    rel="preload"
+    href="@/fonts/ProductSans-Bold.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="@/fonts/ProductSans-Regular.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
+  <link
+    rel="preload"
+    href="@/fonts/ProductSans-Medium.ttf"
+    as="font"
+    type="font/ttf"
+    crossorigin
+  />
+
+
+
+
+<!--<link rel="canonical" href={canonicalURL}>  Canonical URL   -->
+
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description}/>
+
+<!--OPEN GRAPH -->
+<meta property="og:type",content="website" />
+<meta property="og:url" content={Astro.url}>
+<meta property="og:title" content={title}>
+<meta property="og:description" content={description}>
+<meta property="og:image" content={new URL(image,Astro.url)}>
+
+
+
+
+<!--TWITER -->
+<meta property="twiter:card" content="summary_large_image">
+<meta property="twiter:url" content={Astro.url}>
+<meta property="twiter:title" content={title}>
+<meta property="twiter:description" content={description}>
+<meta property="twiter:image" content={new URL(image,Astro.url)}>
+
+<!--Transition -->
+
+  <ViewTransitions />
+</head>

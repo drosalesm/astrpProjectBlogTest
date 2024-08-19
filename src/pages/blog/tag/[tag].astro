@@ -1,0 +1,33 @@
+---
+import Article from "@/components/article.astro";
+import ArticleList from "@/layouts/articleList.astro";
+import { getAllTags } from "@/utiles/getAllTags";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+
+
+export const getStaticPaths = (async () => {
+    const tags = (await getAllTags()).map((tag) => tag.toLocaleLowerCase());
+    return tags.map((tag) => ({ params: { tag },props:{tag} }));
+    return [];
+}) satisfies GetStaticPaths;
+
+
+const {tag}=Astro.props;
+
+const posts= await getCollection("blog",({data})=>
+    data.tags.map((data)=>data.toLowerCase()).includes(tag)
+);
+
+
+---
+
+
+<ArticleList>
+    {
+        posts.map((post) => (
+            <Article {...post.data} slug={post.slug} />
+        ))
+    }
+</ArticleList>
